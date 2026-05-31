@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=arrow_forward,menu" />
+		
+		{% load static %}
+		<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	</head>
+
+	<body>
+		<div class="overlay"></div>
+		
+		<div id="loading" style="display:none;">
+			Loading...
+		</div>
+
+	<div class="layout">
+
+		<aside class="sidebar">
+
+			<h3>{{ request.user.username }}</h3>
+
+			<h4>Chat History</h4>
+
+			{% for q in questions %}
+				<div class="history-item">
+					{{ q.question|truncatechars:25 }}
+				</div>
+			{% endfor %}
+
+			<button onclick="location.href='/logout/'">
+				Logout
+			</button>
+
+		</aside>
+
+		<main class="chat-wrapper">
+			<header class="topbar">
+
+				<button class="menu-btn">
+					<span class="material-symbols-outlined">
+						menu
+					</span>
+				</button>
+
+				<h2>Electrical AI</h2>
+
+			</header>
+				<div class="chat-area">
+					{% for q in questions %}
+
+						<div class="message user">
+							{{ q.question }}
+						</div>
+						
+						<div class="message ai">
+							{{ q.answer|safe }}
+						</div>
+					{% endfor %}
+				</div>
+
+				<form method="POST" class="input-bar">
+					{% csrf_token %}
+
+					<input
+						type="text"
+						name="question"
+						placeholder="Ask an electrical question..."
+					>
+					<button>
+					<span class="material-symbols-outlined">
+						arrow_forward
+					</span>
+					</button>
+				</form>
+			
+
+		</main>
+
+	</div>		
+		
+		
+		
+	
+		<script>
+			document.querySelector(".input-bar").addEventListener("submit", () => {
+				document.getElementById("loading").style.display = "block";
+			});
+		</script>
+	
+		
+	<script>
+		const chatArea = document.querySelector(".chat-area");
+		chatArea.scrollTop = chatArea.scrollHeight;
+	</script>
+	
+	<script>
+
+	const menuBtn = document.querySelector(".menu-btn");
+	const sidebar = document.querySelector(".sidebar");
+
+	const overlay = document.querySelector(".overlay");
+
+	menuBtn.addEventListener("click", () => {
+
+		sidebar.classList.toggle("open");
+		overlay.classList.toggle("show");
+
+	});
+
+	overlay.addEventListener("click", () => {
+
+		sidebar.classList.remove("open");
+		overlay.classList.remove("show");
+
+	});
+	
+
+
+	</script>
+
+	</body>
+	
+</html>
