@@ -1,65 +1,260 @@
-# voltieai-chatbot
-A Django-based interactive Q&amp;A chatbot platform for Electrical Machines using MySQL and a ChatGPT-compatible API (like Groq).
-=======
-Intern Full Stack Development Test: Electrical Machines Q&A Platform
+# Electrical Machines Q&A Platform
 
-Project Overview:
+A Django-based web application that allows authenticated users to ask electrical engineering and electrical machine related questions and receive AI-generated answers.
 
-You are tasked with building a web application using Django and MySQL to create a platform for users to ask questions related to electrical machines.
-The application should pull relevant data from a ChatGPT plugin to provide accurate answers to user queries.
+## Features
 
-Requirements:
+* User Registration
+* User Authentication (Login/Logout)
+* Electrical Engineering Q&A System
+* AI-Powered Answers using Gemini API
+* MySQL Database Integration
+* Question History Sidebar
+* Responsive Mobile-First Design
+* Markdown Formatted Answers
+* Ubuntu/Linux Deployment Support
 
-1. Backend Development:
-   * Implement a Django web application with the following features:
-    * User registration and authentication system.
-     * Ability for authenticated users to ask questions related to electrical machines.
-     * Store questions and answers in a MySQL database.
-     * Integration with a ChatGPT plugin to pull relevant data for answering questions on electrical machines.
+---
 
-2. Frontend Development:
-   * Create a user-friendly interface for asking questions and displaying answers.
-   * Ensure responsiveness and usability across different devices.
+## Technology Stack
 
-3. ChatGPT Integration:
-   * Utilize the ChatGPT plugin to query for relevant answers based on user questions related to electrical machines.
-   * Display the retrieved answers along with the questions in the user interface.
+### Backend
 
-4. Database Design:
-   * Design a MySQL database schema to store user information, questions, and answers related to electrical machines.
+* Django 5.2
+* MySQL
+* Google Gemini API
 
-5. Ubuntu OS Deployment:
-   * Deploy the application on an Ubuntu server.
-   * Ensure proper setup and configuration for smooth functioning of the application.
+### Frontend
 
-Instructions:
+* HTML
+* CSS
+* JavaScript
 
-* Number of users : 10, Number of fields/columns for database: 5, Number of data/rows: 10
-* Fork this GitHub repository: [Intern Full Stack Development Test](https://github.com/vigneshranganathan/intern_full_stack_development/)
-* Complete the tasks described above within 3 days.
-* Ensure your code is well*documented and follows PEP 8 standards.
-* Use Django for backend development and MySQL as the database backend.
-* Integrate the ChatGPT plugin to pull relevant data for answering questions on electrical machines.
-* Deploy the application on an Ubuntu server (you can use any cloud provider or local setup).
-* Once completed, submit your solution by sending a pull request to the main repository.
+### Additional Libraries
 
-Evaluation Criteria:
+* python-dotenv
+* Markdown
+* mysqlclient
 
-Your solution will be evaluated based on the following criteria:
+---
 
-1. Functionality: Does the web application meet the specified requirements? Are users able to register, ask questions related to electrical machines, and view relevant answers?
+## Database Design
 
-2. Code Quality: Is the code well*structured, readable, and maintainable? Are best practices followed?
+### User
 
-3. Integration with ChatGPT Plugin: Is the ChatGPT plugin integrated effectively to provide relevant answers? Are queries sent to the plugin appropriately and responses handled correctly?
+Django's built-in authentication system is used.
 
-4. Database Design: Is the database schema well*designed and appropriate for the task? Are relationships between entities defined correctly?
+### Question
 
-5. Frontend Design: Is the user interface intuitive and user*friendly? Does it provide a smooth experience for asking questions and viewing answers?
+| Field      | Type             |
+| ---------- | ---------------- |
+| id         | AutoField        |
+| user       | ForeignKey(User) |
+| question   | TextField        |
+| answer     | TextField        |
+| created_at | DateTimeField    |
 
-6. Ubuntu OS Deployment: Is the application successfully deployed on an Ubuntu server? Is it accessible and functional?
+---
 
-7. Documentation: Is the code adequately documented? Are setup instructions provided for deployment on an Ubuntu server?
+## Screenshots
 
-Note: If you encounter any issues or have questions during the test, feel free to reach out for clarification or assistance.
+### Signup Page
 
+![Login Page](screenshots/sign.png)
+### Login
+
+![Dashboard](screenshots/login.png)
+
+### Dashboard
+
+![Dashboard](screenshots/dashboard.png)
+
+
+
+---
+
+## Installation Guide
+
+### Clone Repository
+
+```bash
+git clone <repository-url>
+cd intern_full_stack_development
+```
+
+### Create Virtual Environment
+
+```bash
+python -m venv venv
+```
+
+### Activate Virtual Environment
+
+Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+Linux:
+
+```bash
+source venv/bin/activate
+```
+
+### Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## Environment Variables
+
+Create a `.env` file in the project root.
+
+```env
+GEMINI_API_KEY=your_api_key
+
+DB_NAME=electrical_ai
+DB_USER=root
+DB_PASSWORD=your_password
+DB_HOST=localhost
+DB_PORT=3306
+```
+
+---
+
+## MySQL Setup
+
+Create the database:
+
+```sql
+CREATE DATABASE electrical_ai;
+```
+
+---
+
+## Run Migrations
+
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+
+---
+
+## Run Development Server
+
+```bash
+python manage.py runserver
+```
+
+Application will be available at:
+
+```text
+http://127.0.0.1:8000
+```
+
+---
+
+# Ubuntu Deployment Guide
+
+## Update Packages
+
+```bash
+sudo apt update
+```
+
+## Install Required Packages
+
+```bash
+sudo apt install git
+sudo apt install python3-pip
+sudo apt install python3-venv
+sudo apt install mysql-server
+sudo apt install pkg-config
+sudo apt install default-libmysqlclient-dev
+```
+
+## Clone Repository
+
+```bash
+git clone <repository-url>
+cd intern_full_stack_development
+```
+
+## Create Virtual Environment
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+## Install Requirements
+
+```bash
+pip install -r requirements.txt
+```
+
+## Configure Environment Variables
+
+Create `.env`
+
+```env
+GEMINI_API_KEY=your_api_key
+
+DB_NAME=electrical_ai
+DB_USER=root
+DB_PASSWORD=your_password
+DB_HOST=localhost
+DB_PORT=3306
+```
+
+## Configure MySQL
+
+```bash
+sudo mysql
+```
+
+```sql
+CREATE DATABASE electrical_ai;
+```
+
+## Apply Migrations
+
+```bash
+python manage.py migrate
+```
+
+## Start Server
+
+```bash
+python manage.py runserver 0.0.0.0:8000
+```
+
+---
+
+## Project Structure
+
+```text
+electrical_qa/
+│
+├── qa/
+├── templates/
+├── static/
+├── screenshots/
+├── requirements.txt
+├── README.md
+├── .env
+└── manage.py
+```
+
+---
+
+## Author
+
+Vetrivel
+
+Full Stack Development Internship Assignment Submission
